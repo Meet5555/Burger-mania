@@ -18,6 +18,8 @@ This is basic demonstration of CRUD operation in the React Application.
 
 - **React Router DOM**: Declarative routing for seamless navigation within the app.
 
+- **Redux**: A predictable state container for JavaScript apps.
+
 - **Tailwind CSS**: Craft stylish and responsive interfaces effortlessly.
 
 - **React Toastify**: Enhance user experience with toast notifications.
@@ -82,6 +84,10 @@ Burger Mania relies on the following technologies and libraries:
 - **React Router DOM**: Declarative routing for React applications. [Documentation](https://reactrouter.com/web/guides/quick-start)
 
 - **Tailwind CSS**: A utility-first CSS framework for building responsive and stylish interfaces. [Documentation](https://tailwindcss.com/docs)
+
+- **Redux**: A predictable state container for JavaScript apps. [Documentation](https://redux.js.org/)
+
+- **react-redux**: Official React bindings for Redux. [Documentation](https://react-redux.js.org/)
 
 ## Contributing
 
