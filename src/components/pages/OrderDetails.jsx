@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import useLocalStorage from '../../CustomHooks/useLocalStorage';
+import {useDispatch, useSelector} from "react-redux"
+import { updateOrder} from "../../redux/actions/actions"
 import Burger from '../common/Burger';
 import IngredientItem from '../common/IngredientItem';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,32 +9,24 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
-  const {setItem: setOrders, getItem: getOrders} = useLocalStorage('orders');
   const [order,setOrder] = useState({})
-  const [ordersObj,setOrdersObj] = useState([])
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const orders = useSelector((state) => state.orderedBurgers)
 
   const fetchOrders = () => {
-    const orders = getOrders();
     if(!orders || orderId > orders[orders.length-1].id){
       navigate('/orders');
     }
-    setOrdersObj(()=>getOrders() || [])
   }
 
   const fetchOrderDetails = () => {
-    const selectedOrder = ordersObj.find((obj) => obj.id === parseInt(orderId, 10));
+    const selectedOrder = orders.find((obj) => obj.id === parseInt(orderId, 10));
     setOrder(selectedOrder || {});
   }
 
   const handleUpdateOrder = () => {
-    const updatedOrders = ordersObj.map((curOrder)=>{
-      if(curOrder.id === order.id){
-        return order;
-      }
-      return curOrder;
-    });
-    setOrders(updatedOrders);
+    dispatch(updateOrder(order))
     toast.success('Order updated!', {
       position: "top-center",
       autoClose: 2000,
@@ -51,11 +44,8 @@ const OrderDetails = () => {
 
   useEffect(()=>{
     fetchOrders();
-  },[])
-  
-  useEffect(()=>{
     fetchOrderDetails();
-  },[ordersObj])
+  },[])
 
   return (
     <>
