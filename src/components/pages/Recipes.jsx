@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useDispatch, useSelector } from "react-redux"
 import { placeOrder } from "../../redux/actions/actions"
+import {useTheme} from "../../contexts/themeContext"
 
 const Recipes = () => {
 	const dispatch = useDispatch()
@@ -14,6 +15,7 @@ const Recipes = () => {
 		Patties: 1,
 		Salad: 1,
 	})
+	const { theme } = useTheme()
 
 	const handleOrderClick = () => {
 		const newOrder = {
@@ -30,12 +32,12 @@ const Recipes = () => {
 			pauseOnHover: true,
 			draggable: true,
 			progress: undefined,
-			theme: "light",
+			theme: theme,
 		})
 	}
 
 	return (
-		<div className="container w-2/4 p-5 text-center bg-red-50 m-auto mt-6">
+		<div className="container w-2/4 p-5 text-center bg-red-50 m-auto mt-6 bg-neutral-300 dark:bg-gray-700">
 			<ToastContainer />
 			<Burger
 				cheeseQuantity={ingredients.Cheese}

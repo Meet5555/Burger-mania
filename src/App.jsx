@@ -7,11 +7,13 @@ import Error from './components/pages/Error'
 import Home from './components/pages/Home'
 import Navbar from './components/layout/Navbar'
 import OrderDetails from './components/pages/OrderDetails'
+import {ThemeProvider} from './contexts/themeContext'
 
 function App() {
 
   return (
     <>
+    <ThemeProvider>
       <Navbar />
       <Routes>
         <Route exact path='/' element={<Home />}/>
@@ -21,6 +23,7 @@ function App() {
         <Route path='*' element={<Error />}/>
       </Routes>
       <Footer />
+      </ThemeProvider>
     </>
   )
 }

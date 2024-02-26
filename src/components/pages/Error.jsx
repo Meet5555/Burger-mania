@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 const Error = () => {
   return (
-    <div className='text-center mt-8'>
+    <div className='text-center mt-8 text-black dark:text-white'>
       Oops, page not Found. <Link to={'/'} className='text-purple-800'>Go to HomePage</Link>
     </div>
   )

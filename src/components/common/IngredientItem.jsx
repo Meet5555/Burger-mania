@@ -39,10 +39,10 @@ const IngredientItem = ({item,itemCount,updateItem}) => {
   return (
     <>
      <div className='ingredient-item mt-3 w-[min(250px,2/4)] m-auto flex items-center justify-between'>
-        <div>{item}</div>
+        <div className='text-black dark:text-white'>{item}</div>
         <div>
           <button type='button' className={`item-btns ms-3 bg-teal-50 px-2 rounded ${itemCount <= minQuantity[item] ? 'bg-teal-700 cursor-not-allowed':' hover:bg-teal-100'}`} onClick={handleDecrement} disabled={itemCount <= minQuantity[item]}>-</button>
-          <span className='mx-1'> {itemCount} </span>
+          <span className='mx-1 text-black dark:text-white'> {itemCount} </span>
           <button type='button' className={`item-btns me-3 bg-teal-50  px-2 rounded ${itemCount >= maxQuantity[item] ? 'bg-teal-700 cursor-not-allowed':' hover:bg-teal-100'}`} onClick={handleIncrement} disabled={itemCount >= maxQuantity[item]}>+</button>
         </div>
       </div> 
