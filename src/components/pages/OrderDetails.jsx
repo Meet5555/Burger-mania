@@ -6,6 +6,7 @@ import Burger from '../common/Burger';
 import IngredientItem from '../common/IngredientItem';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useTheme} from '../../contexts/themeContext';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -13,6 +14,7 @@ const OrderDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const orders = useSelector((state) => state.orderedBurgers)
+  const { theme } = useTheme()
 
   const fetchOrders = () => {
     if(!orders || orderId > orders[orders.length-1].id){
@@ -35,7 +37,7 @@ const OrderDetails = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: theme,
       });
       setTimeout(() => {
         navigate('/orders');
@@ -49,7 +51,7 @@ const OrderDetails = () => {
 
   return (
     <>
-      <div className='container w-2/4 p-5 text-center bg-red-50 m-auto mt-6'>
+      <div className='container w-2/4 p-5 text-center bg-red-50 m-auto mt-6  dark:bg-gray-700'>
       <ToastContainer />
       <Burger cheeseQuantity={order.Cheese} saladQuantity={order.Salad} pattiesQuantity={order.Patties} />
       <div className='my-10 w-2/4 m-auto'>
