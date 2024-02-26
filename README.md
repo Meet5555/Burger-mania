@@ -11,6 +11,8 @@ This is basic demonstration of CRUD operation in the React Application.
 
 - **Order Management**: View your order history, cancel existing orders, and update orders by modifying ingredient quantities.
 
+- **Theme**: easily change between light and dark theme using switch in navbar
+
 ## Technologies Used
 - **Vite**: A fast and opinionated development environment for building modern web applications.
 
