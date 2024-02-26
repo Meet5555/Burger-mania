@@ -91,6 +91,8 @@ Burger Mania relies on the following technologies and libraries:
 
 - **react-redux**: Official React bindings for Redux. [Documentation](https://react-redux.js.org/)
 
+- **Material UI**: Open-source React component library that implements Google's Material Design. [Documentation](https://mui.com/material-ui/getting-started/)
+
 ## Contributing
 
 Feel free to contribute to Burger Mania by opening issues or submitting pull requests.
