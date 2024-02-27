@@ -1,16 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const Table = ({ ordersObj, handleDeleteOrder }) => {
+const Table = ({ ordersObj, handleDeleteOrder, toggleSort, isAscending }) => {
 	const tableHeadersClass =
 		"px-6 py-3 bg-gray-200 dark:bg-gray-400 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider text-black dark:text-white text-center"
+
+	const sortIcon = isAscending ? "/images/up.png": "/images/down.png";
 
 	return (
 		<>
 			<table className="min-w-full border border-gray-300 dark:border-gray-900 divide-y divide-gray-300 dark:divide-gray-900 mt-5 ">
 				<thead>
 					<tr>
-						<th className={tableHeadersClass}>Order ID</th>
+						<th className={`${tableHeadersClass} flex items-center justify-center`}>Order ID <span className="block w-[10px] ml-1 cursor-pointer" onClick={() => toggleSort()}><img className="w-full" src={sortIcon} alt="sort" /></span></th>
 						<th className={tableHeadersClass}>Cheese</th>
 						<th className={tableHeadersClass}>Patties</th>
 						<th className={tableHeadersClass}>Salad</th>

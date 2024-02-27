@@ -37,7 +37,7 @@ const Recipes = () => {
 	}
 
 	return (
-		<div className="container w-2/4 p-5 text-center bg-red-50 m-auto mt-6 bg-neutral-300 dark:bg-gray-700">
+		<div className="container w-2/4 p-5 text-center bg-red-50 m-auto mt-6 dark:bg-gray-700">
 			<ToastContainer />
 			<Burger
 				cheeseQuantity={ingredients.Cheese}
