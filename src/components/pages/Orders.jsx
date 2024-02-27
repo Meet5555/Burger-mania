@@ -13,6 +13,7 @@ const Orders = () => {
 	const [page, setPage] = useState(0)
 	const [limit, setLimit] = useState(5)
 	const [tableData, setTableData] = useState([])
+	const [isAscending, setIsAscending] = useState(true);
 
 	const fetchOrders = () => {
 		setOrdersObj(orders)
@@ -22,23 +23,39 @@ const Orders = () => {
 		fetchOrders()
 	}, [])
 
+	const handleInputChange = (e) => {
+		setPage(0)
+		if(!isNaN(e.target.value)){
+			setSearchQuery(e.target.value.toString().trim())
+		}
+	}
+
 	const handleDeleteOrder = (orderId) => {
 		if (confirm(`Are you sure you want to cancel order ${orderId}`)) {
 			const updatedOrders = ordersObj.filter((order) => order.id !== orderId)
 			dispatch(deleteOrder(orderId))
 			setOrdersObj(updatedOrders)
+			if(updatedOrders.length <= page*limit){
+				setPage(prev=>prev-1)
+			}
+			// if((((updatedOrders.length / limit)*10) % 10) === 0){
+			// 	setPage(prev=>prev-1)
+			// }
 		}
 	}
 
 	const search = (data) => {
-		// console.log("searching",searchQuery)
 		return data.filter((item) =>
 			item.id.toString().includes(searchQuery.toString())
 		)
 	}
 
 	const dataToShow = (data) => {
-		return data.slice(page * limit, (page + 1) * limit)
+		return data.slice(page * limit, (page + 1) * limit).sort((a,b)=>isAscending ? a.id-b.id : b.id-a.id);
+	}
+
+	const toggleSort = () => {
+		setIsAscending(prev=>!prev);
 	}
 
 	const handleChangeRowsPerPage = (event) => {
@@ -63,7 +80,7 @@ const Orders = () => {
 		} else {
 			setTableData(dataToShow(ordersObj))
 		}
-	}, [debouncedQuery, page, limit, ordersObj])
+	}, [debouncedQuery, page, limit, ordersObj, isAscending])
 
 	return (
 		<div className="w-3/4 m-auto mt-5 bg-lime-100 dark:bg-gray-700 p-5">
@@ -77,21 +94,22 @@ const Orders = () => {
 					id="search"
 					className="px-3 w-[100%] py-1 outline-none rounded bg-white dark:bg-gray-500 text-black dark:text-white focus:ring focus:border-blue-500"
 					value={searchQuery}
-					onChange={(e) => {
-						setPage(0)
-						setSearchQuery(e.target.value)
-					}}
+					onChange={handleInputChange}
 					placeholder="Search order by order id"
 				/>
 			</div>
 			<div className="order-container">
 				{ordersObj.length === 0 ? (
-					<h1>No orders</h1>
+					<div className="w-4/5 m-auto text-center mt-5">
+						<h1 className="text-xl">No orders</h1>
+					</div>
 				) : (
 					<>
 						<Table
 							ordersObj={tableData}
 							handleDeleteOrder={handleDeleteOrder}
+							toggleSort={toggleSort}
+							isAscending={isAscending}
 						/>
 						<TablePagination
 							component="div"
