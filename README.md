@@ -77,6 +77,21 @@ Burger Mania leverages local storage for order data. The order schema is formatt
 ]
 ```
 
+## Minimum and Maximum Quantities for Ingredients
+```
+  minQuantity = {
+    Cheese: 0,
+    Patties: 1,
+    Salad: 2
+  }
+
+  maxQuantity = {
+    Cheese: 3,
+    Patties: 2,
+    Salad: 4
+  }  
+```
+
 ## Dependencies
 
 Burger Mania relies on the following technologies and libraries:

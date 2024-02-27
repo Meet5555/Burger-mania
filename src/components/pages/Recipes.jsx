@@ -13,7 +13,7 @@ const Recipes = () => {
 	const [ingredients, setIngredients] = useState({
 		Cheese: 1,
 		Patties: 1,
-		Salad: 1,
+		Salad: 2,
 	})
 	const { theme } = useTheme()
 
