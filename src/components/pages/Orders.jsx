@@ -8,20 +8,11 @@ import useDebounce from "../../CustomHooks/useDebounce"
 const Orders = () => {
 	const dispatch = useDispatch()
 	const orders = useSelector((state) => state.orderedBurgers)
-	const [ordersObj, setOrdersObj] = useState([])
 	const [searchQuery, setSearchQuery] = useState("")
 	const [page, setPage] = useState(0)
 	const [limit, setLimit] = useState(5)
 	const [tableData, setTableData] = useState([])
 	const [isAscending, setIsAscending] = useState(true);
-
-	const fetchOrders = () => {
-		setOrdersObj(orders)
-	}
-
-	useEffect(() => {
-		fetchOrders()
-	}, [])
 
 	const handleInputChange = (e) => {
 		setPage(0)
@@ -32,9 +23,8 @@ const Orders = () => {
 
 	const handleDeleteOrder = (orderId) => {
 		if (confirm(`Are you sure you want to cancel order ${orderId}`)) {
-			const updatedOrders = ordersObj.filter((order) => order.id !== orderId)
+			const updatedOrders = orders.filter((order) => order.id !== orderId)
 			dispatch(deleteOrder(orderId))
-			setOrdersObj(updatedOrders)
 			if(updatedOrders.length <= page*limit){
 				setPage(prev=>prev-1)
 			}
@@ -60,7 +50,7 @@ const Orders = () => {
 
 	const handleChangeRowsPerPage = (event) => {
 		if (event.target.value == -1) {
-			setLimit(ordersObj.length)
+			setLimit(orders.length)
 			setPage(0)
 		} else {
 			setLimit(parseInt(event.target.value, 10))
@@ -76,11 +66,11 @@ const Orders = () => {
 
 	useEffect(() => {
 		if (searchQuery !== "") {
-			setTableData(dataToShow(search(ordersObj)))
+			setTableData(dataToShow(search(orders)))
 		} else {
-			setTableData(dataToShow(ordersObj))
+			setTableData(dataToShow(orders))
 		}
-	}, [debouncedQuery, page, limit, ordersObj, isAscending])
+	}, [debouncedQuery, page, limit, orders, isAscending])
 
 	return (
 		<div className="w-3/4 m-auto mt-5 bg-lime-100 dark:bg-gray-700 p-5">
@@ -99,7 +89,7 @@ const Orders = () => {
 				/>
 			</div>
 			<div className="order-container">
-				{ordersObj.length === 0 ? (
+				{orders.length === 0 ? (
 					<div className="w-4/5 m-auto text-center mt-5">
 						<h1 className="text-xl">No orders</h1>
 					</div>
@@ -113,7 +103,7 @@ const Orders = () => {
 						/>
 						<TablePagination
 							component="div"
-							count={ordersObj.length}
+							count={orders.length}
 							page={page}
 							onPageChange={handleChangePage}
 							rowsPerPage={limit}
